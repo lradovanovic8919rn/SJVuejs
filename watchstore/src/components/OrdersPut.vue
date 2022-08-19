@@ -1,0 +1,62 @@
+<template>
+<div>
+    <b-form @submit="onSubmit">
+      <b-form-group label="OrderID:" label-for="id">
+        <b-form-input id="id" v-model="form.id" placeholder="Enter id" type="number" required></b-form-input>
+      </b-form-group>
+    <b-form-group label="Date:" label-for="capacity">
+        <b-form-input id="capacity" v-model="form.date" placeholder="Enter new date" required></b-form-input>
+      </b-form-group>
+      
+      <br>
+      <b-button type="submit" variant="primary">PUT</b-button>
+    </b-form>
+</div>
+</template>
+
+<script>
+  import { mapActions } from 'vuex';
+
+  export default {
+        name: 'OrdersPut',
+        data() {
+        return {
+            form: {
+                id: '',
+                date: ''
+            }
+        }
+        },
+            methods: {
+            ...mapActions([
+                'putorders',
+                'otpset'
+            ]),
+
+            onSubmit(e) {
+                e.preventDefault();
+                this.otpset(this.form.id)
+                this.putorders(this.form);
+                this.form.id = '';
+                this.form.date = '';
+
+            }
+        }
+    }
+
+</script>
+
+<style scoped>
+  .card {
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .card-title {
+    margin-bottom: 0px;
+  }
+
+  .card-body {
+    padding-bottom: 5px;
+  }
+</style>
